@@ -213,7 +213,9 @@ public class UserController {
     public Map<String, Object> postAuthCode(@RequestBody Map m) {
         Map<String, Object> ret = new HashMap<>();
         String userName = m.get("userName").toString();
-        String mailAddress = m.get("mailAddress").toString();
+//        String mailAddress = m.get("mailAddress").toString();
+        User user = userService.getUserByName(userName);
+        String mailAddress = user.getMailAddress().toString();
 
         String authCode = userService.getUserByName(userName).getAuthCode();
         EmailService.send(mailAddress, "您的验证码是："+ authCode);
